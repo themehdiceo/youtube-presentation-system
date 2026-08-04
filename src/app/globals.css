@@ -151,6 +151,10 @@
   z-index: var(--z-footer);
 }
 
+@utility z-overlay {
+  z-index: var(--z-overlay);
+}
+
 html {
   color-scheme: dark;
 }
