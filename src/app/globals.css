@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+:root {
+  /* Backgrounds */
+  --color-background: #050505;
+  --color-surface: #111111;
+  --color-surface-elevated: #1a1a1a;
+  --color-surface-muted: #0c0c0c;
+
+  /* Text */
+  --color-text-primary: #f4f4f0;
+  --color-text-secondary: #a8a8a3;
+  --color-text-muted: #6b6b66;
+  --color-text-inverse: #050505;
+
+  /* Borders */
+  --color-border: #262626;
+  --color-border-subtle: #1a1a1a;
+  --color-border-strong: #333333;
+
+  /* Accents */
+  --color-accent-blue: #4f8cff;
+  --color-accent-purple: #a78bfa;
+  --color-accent-green: #34d399;
+  --color-accent-yellow: #f5c542;
+  --color-accent-red: #f87171;
+  --color-accent-orange: #fb923c;
+
+  /* Typography scale — sized for 1920×1080 presentations */
+  --text-display: 6rem;
+  --text-h1: 4.5rem;
+  --text-h2: 3.5rem;
+  --text-h3: 2.5rem;
+  --text-body-lg: 2rem;
+  --text-body: 1.5rem;
+  --text-caption: 1.125rem;
+  --text-eyebrow: 0.875rem;
+  --text-quote: 2.25rem;
+  --text-metric: 5rem;
+
+  --tracking-display: -0.03em;
+  --tracking-h1: -0.025em;
+  --tracking-h2: -0.02em;
+  --tracking-h3: -0.015em;
+  --tracking-metric: -0.03em;
+  --tracking-eyebrow: 0.12em;
+
+  /* Layout */
+  --slide-width: 1920px;
+  --slide-height: 1080px;
+  --content-max-width: 1600px;
+  --content-max-width-narrow: 1200px;
+  --safe-area-x: 5rem;
+  --safe-area-y: 4rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.6);
+  --shadow-xl: 0 24px 48px -12px rgb(0 0 0 / 0.7);
+  --shadow-glow-blue: 0 0 40px -8px rgb(79 140 255 / 0.35);
+  --shadow-glow-purple: 0 0 40px -8px rgb(167 139 250 / 0.35);
+  --shadow-glow-green: 0 0 40px -8px rgb(52 211 153 / 0.35);
+
+  /* Z-index */
+  --z-base: 0;
+  --z-content: 10;
+  --z-header: 20;
+  --z-footer: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-tooltip: 50;
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-surface-elevated: var(--color-surface-elevated);
+  --color-surface-muted: var(--color-surface-muted);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+
+  --color-border: var(--color-border);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-strong: var(--color-border-strong);
+
+  --color-accent-blue: var(--color-accent-blue);
+  --color-accent-purple: var(--color-accent-purple);
+  --color-accent-green: var(--color-accent-green);
+  --color-accent-yellow: var(--color-accent-yellow);
+  --color-accent-red: var(--color-accent-red);
+  --color-accent-orange: var(--color-accent-orange);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --text-display: var(--text-display);
+  --text-h1: var(--text-h1);
+  --text-h2: var(--text-h2);
+  --text-h3: var(--text-h3);
+  --text-body-lg: var(--text-body-lg);
+  --text-body: var(--text-body);
+  --text-caption: var(--text-caption);
+  --text-eyebrow: var(--text-eyebrow);
+  --text-quote: var(--text-quote);
+  --text-metric: var(--text-metric);
+
+  --tracking-display: var(--tracking-display);
+  --tracking-h1: var(--tracking-h1);
+  --tracking-h2: var(--tracking-h2);
+  --tracking-h3: var(--tracking-h3);
+  --tracking-metric: var(--tracking-metric);
+  --tracking-eyebrow: var(--tracking-eyebrow);
+
+  --spacing-safe-x: var(--safe-area-x);
+  --spacing-safe-y: var(--safe-area-y);
+
+  --max-width-content: var(--content-max-width);
+  --max-width-content-narrow: var(--content-max-width-narrow);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-glow-blue: var(--shadow-glow-blue);
+  --shadow-glow-purple: var(--shadow-glow-purple);
+  --shadow-glow-green: var(--shadow-glow-green);
+
+  --z-index-header: var(--z-header);
+  --z-index-footer: var(--z-footer);
+}
+
+@utility px-safe-x {
+  padding-left: var(--safe-area-x);
+  padding-right: var(--safe-area-x);
+}
+
+@utility py-safe-y {
+  padding-top: var(--safe-area-y);
+  padding-bottom: var(--safe-area-y);
+}
+
+@utility z-header {
+  z-index: var(--z-header);
+}
+
+@utility z-footer {
+  z-index: var(--z-footer);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
