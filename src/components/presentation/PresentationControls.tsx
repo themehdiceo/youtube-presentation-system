@@ -47,6 +47,14 @@ function FullscreenIcon({ exit }: { exit: boolean }) {
   );
 }
 
+const controlButtonClass = cn(
+  "flex h-6 w-6 items-center justify-center rounded-md text-text-muted transition-colors",
+  "hover:bg-surface-elevated hover:text-text-secondary",
+  "focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-accent-blue/60",
+  "disabled:cursor-not-allowed disabled:opacity-25",
+  "[&_svg]:h-3 [&_svg]:w-3",
+);
+
 export function PresentationControls({
   currentSlide,
   totalSlides,
@@ -62,16 +70,17 @@ export function PresentationControls({
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-x-0 bottom-0 z-overlay flex justify-center pb-6",
-        "opacity-0 transition-opacity duration-300 group-hover/presentation:opacity-100 group-focus-within/presentation:opacity-100",
-        isFullscreen && "pb-8",
+        "pointer-events-none absolute bottom-3 right-3 z-overlay",
+        "opacity-35 transition-opacity duration-300",
+        "group-hover/presentation:opacity-90 group-focus-within/presentation:opacity-90",
+        isFullscreen && "bottom-4 right-4",
         className,
       )}
     >
       <div
         className={cn(
-          "pointer-events-auto flex items-center gap-2 rounded-full border border-border bg-surface/90 px-3 py-2 backdrop-blur-sm",
-          "shadow-lg",
+          "pointer-events-auto flex items-center gap-0.5 rounded-md border border-border/40 bg-surface/65 px-1 py-0.5 backdrop-blur-sm",
+          "shadow-md",
         )}
       >
         <button
@@ -79,19 +88,13 @@ export function PresentationControls({
           onClick={onPrev}
           disabled={isFirst}
           aria-label="Slide précédente"
-          className={cn(
-            "flex h-10 w-10 items-center justify-center rounded-full text-text-secondary transition-colors",
-            "hover:bg-surface-elevated hover:text-text-primary",
-            "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-blue",
-            "disabled:cursor-not-allowed disabled:opacity-30",
-            "[&_svg]:h-5 [&_svg]:w-5",
-          )}
+          className={controlButtonClass}
         >
           <ChevronLeftIcon />
         </button>
 
         <span
-          className="min-w-16 px-2 text-center text-caption font-medium tabular-nums text-text-secondary"
+          className="min-w-10 px-1 text-center text-[0.65rem] font-medium tabular-nums text-text-muted"
           aria-live="polite"
           aria-atomic="true"
         >
@@ -107,30 +110,19 @@ export function PresentationControls({
           onClick={onNext}
           disabled={isLast}
           aria-label="Slide suivante"
-          className={cn(
-            "flex h-10 w-10 items-center justify-center rounded-full text-text-secondary transition-colors",
-            "hover:bg-surface-elevated hover:text-text-primary",
-            "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-blue",
-            "disabled:cursor-not-allowed disabled:opacity-30",
-            "[&_svg]:h-5 [&_svg]:w-5",
-          )}
+          className={controlButtonClass}
         >
           <ChevronRightIcon />
         </button>
 
         {isFullscreenSupported && (
           <>
-            <div className="mx-1 h-6 w-px bg-border" aria-hidden />
+            <div className="mx-0.5 h-4 w-px bg-border/60" aria-hidden />
             <button
               type="button"
               onClick={onToggleFullscreen}
               aria-label={isFullscreen ? "Quitter le plein écran" : "Activer le plein écran"}
-              className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full text-text-secondary transition-colors",
-                "hover:bg-surface-elevated hover:text-text-primary",
-                "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-blue",
-                "[&_svg]:h-5 [&_svg]:w-5",
-              )}
+              className={controlButtonClass}
             >
               <FullscreenIcon exit={isFullscreen} />
             </button>

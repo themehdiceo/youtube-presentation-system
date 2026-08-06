@@ -9,7 +9,7 @@ export function SlideContainer({ children, className }: SlideContainerProps) {
   return (
     <div
       className={cn(
-        "flex h-full w-full flex-col px-safe-x py-safe-y",
+        "flex h-full w-full flex-col px-safe-x pt-safe-y pb-safe-bottom",
         className,
       )}
     >

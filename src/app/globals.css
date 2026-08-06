@@ -52,6 +52,7 @@
   --content-max-width-narrow: 1200px;
   --safe-area-x: 5rem;
   --safe-area-y: 4rem;
+  --safe-area-bottom: 9.375rem;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
@@ -117,6 +118,7 @@
 
   --spacing-safe-x: var(--safe-area-x);
   --spacing-safe-y: var(--safe-area-y);
+  --spacing-safe-bottom: var(--safe-area-bottom);
 
   --max-width-content: var(--content-max-width);
   --max-width-content-narrow: var(--content-max-width-narrow);
@@ -143,6 +145,10 @@
   padding-bottom: var(--safe-area-y);
 }
 
+@utility pb-safe-bottom {
+  padding-bottom: var(--safe-area-bottom);
+}
+
 @utility z-header {
   z-index: var(--z-header);
 }
@@ -153,6 +159,11 @@
 
 @utility z-overlay {
   z-index: var(--z-overlay);
+}
+
+@utility font-arabic {
+  font-family: var(--font-arabic), sans-serif;
+  letter-spacing: 0;
 }
 
 html {

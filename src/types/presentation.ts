@@ -12,8 +12,16 @@ export interface SlideMeta {
   accent?: SlideAccent;
 }
 
+export interface PresentationSlideDefinition {
+  id: string;
+  content: React.ReactNode;
+  /** Nombre d'états internes (indexés de 0 à steps - 1). Défaut : 1. */
+  steps?: number;
+}
+
 export interface PresentationState {
   currentSlide: number;
+  currentStep: number;
   totalSlides: number;
   direction: NavigationDirection;
   isFullscreen: boolean;
@@ -21,7 +29,9 @@ export interface PresentationState {
 
 export interface PresentationNavigation {
   currentSlide: number;
+  currentStep: number;
   totalSlides: number;
+  totalStepsForSlide: number;
   direction: NavigationDirection;
   isFirst: boolean;
   isLast: boolean;
@@ -34,10 +44,11 @@ export interface PresentationNavigation {
 }
 
 export interface PresentationEngineProps {
-  slides: React.ReactNode[];
+  slides: PresentationSlideDefinition[];
   initialSlide?: number;
   showControls?: boolean;
   showProgress?: boolean;
+  showStepIndicator?: boolean;
   transition?: SlideTransition;
   className?: string;
 }

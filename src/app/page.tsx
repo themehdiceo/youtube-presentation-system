@@ -33,7 +33,16 @@ export default function Home() {
             href="/demo"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-8 py-4 text-body font-medium text-text-secondary transition-colors hover:border-border-strong hover:text-text-primary"
           >
-            Démo moteur
+            Vidéo 1 — Pourquoi
+            <span aria-hidden className="text-text-muted">
+              →
+            </span>
+          </Link>
+          <Link
+            href="/demo/pas-system"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-8 py-4 text-body font-medium text-text-secondary transition-colors hover:border-border-strong hover:text-text-primary"
+          >
+            Vidéo 2 — PAS System
             <span aria-hidden className="text-text-muted">
               →
             </span>

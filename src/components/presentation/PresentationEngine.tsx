@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { SlideStepProvider } from "@/context/SlideStepContext";
 import { useFullscreen } from "@/hooks/useFullscreen";
 import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 import { usePresentation } from "@/hooks/usePresentation";
@@ -19,14 +20,18 @@ export function PresentationEngine({
   initialSlide = 0,
   showControls = true,
   showProgress = true,
+  showStepIndicator = true,
   transition = "slide",
   className,
 }: PresentationEngineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion() ?? false;
 
+  const stepsPerSlide = slides.map((slide) => slide.steps ?? 1);
+
   const navigation = usePresentation({
     totalSlides: slides.length,
+    stepsPerSlide,
     initialSlide,
   });
 
@@ -50,6 +55,8 @@ export function PresentationEngine({
   });
 
   const variants = getTransitionVariants(transition, reducedMotion);
+  const activeSlide = slides[navigation.currentSlide];
+  const hasInternalSteps = navigation.totalStepsForSlide > 1;
 
   if (slides.length === 0) {
     return (
@@ -71,7 +78,7 @@ export function PresentationEngine({
       ref={containerRef}
       className={cn(
         "group/presentation relative flex h-[min(80vh,calc(100vw*9/16))] w-full max-w-[min(100%,calc(80vh*16/9))] flex-col overflow-hidden rounded-2xl bg-background shadow-xl",
-        fullscreen.isFullscreen && "h-screen max-w-none rounded-none",
+        fullscreen.isFullscreen && "h-screen w-screen max-w-none rounded-none",
         className,
       )}
       aria-roledescription="presentation"
@@ -86,6 +93,25 @@ export function PresentationEngine({
         />
       )}
 
+      {showStepIndicator && hasInternalSteps && (
+        <div
+          className="pointer-events-none absolute right-6 top-4 z-overlay flex gap-1.5"
+          aria-hidden
+        >
+          {Array.from({ length: navigation.totalStepsForSlide }).map((_, i) => (
+            <span
+              key={i}
+              className={cn(
+                "h-1 w-1 rounded-full transition-colors duration-300",
+                i <= navigation.currentStep
+                  ? "bg-accent-blue/80"
+                  : "bg-border-strong",
+              )}
+            />
+          ))}
+        </div>
+      )}
+
       <PresentationViewport isFullscreen={fullscreen.isFullscreen}>
         <div className="relative h-full w-full overflow-hidden bg-background">
           <AnimatePresence mode="wait" custom={navigation.direction}>
@@ -98,7 +124,9 @@ export function PresentationEngine({
               exit="exit"
               className="absolute inset-0 h-full w-full"
             >
-              {slides[navigation.currentSlide]}
+              <SlideStepProvider step={navigation.currentStep}>
+                {activeSlide?.content}
+              </SlideStepProvider>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -110,7 +138,7 @@ export function PresentationEngine({
             type="button"
             onClick={navigation.goPrev}
             disabled={navigation.isFirst}
-            aria-label="Slide précédente"
+            aria-label="Étape ou slide précédente"
             className={cn(
               "absolute inset-y-0 left-0 z-overlay w-[12%] max-w-32 cursor-w-resize",
               "bg-gradient-to-r from-black/20 to-transparent opacity-0 transition-opacity",
@@ -123,7 +151,7 @@ export function PresentationEngine({
             type="button"
             onClick={navigation.goNext}
             disabled={navigation.isLast}
-            aria-label="Slide suivante"
+            aria-label="Étape ou slide suivante"
             className={cn(
               "absolute inset-y-0 right-0 z-overlay w-[12%] max-w-32 cursor-e-resize",
               "bg-gradient-to-l from-black/20 to-transparent opacity-0 transition-opacity",
